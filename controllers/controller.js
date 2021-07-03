@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Info = require("../models/info");
+const Post = require("../models/post");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
@@ -157,6 +158,7 @@ exports.getUser = async (req, res) => {
   }
 };
 
+//Follow User
 exports.followUser = async (req, res) => {
   try {
     const toBeFollowedUser = await User.findById(req.params.id);
@@ -176,6 +178,7 @@ exports.followUser = async (req, res) => {
   }
 };
 
+//Unfollow User
 exports.unFollowUser = async (req, res) => {
   try {
     const toBeUnFollowedUser = await User.findById(req.params.id);
@@ -183,7 +186,9 @@ exports.unFollowUser = async (req, res) => {
       return res.status(400).json({ message: "User Not Found!" });
     if (req.user.following.includes(req.params.id)) {
       await req.user.updateOne({ $pull: { following: req.params.id } });
-      await toBeUnFollowedUser.updateOne({$pull : {followers: req.user._id}})
+      await toBeUnFollowedUser.updateOne({
+        $pull: { followers: req.user._id },
+      });
       return res.status(200).json({ success: true });
     } else {
       res.status(400).json({
@@ -192,5 +197,66 @@ exports.unFollowUser = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
+  }
+};
+
+//Create Post
+exports.createPost = async (req, res) => {
+  try {
+    const post = await Post.create(req.body);
+    await post.save();
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+//Update Post
+exports.updatePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (req.user._id.toString() !== post.userId) {
+      return res.status(500).json({
+        message: "Cannot update!",
+      });
+    }
+    await post.updateOne({ $set: req.body });
+    return res.status(200).json({ message: "Updated Successfully!" });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+//Delete Post
+exports.deletePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (req.user._id.toString() !== post.userId) {
+      return res.status(500).json({
+        message: "Cannot delete!",
+      });
+    }
+    await post.deleteOne();
+    return res.status(200).json({ message: "Deleted Successfully!" });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+//like and dislike a post
+exports.likePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post.likes.includes(req.user._id)) {
+      await post.updateOne({ $push: { likes: req.user._id } });
+      return res.status(200).json({ message: "Post Liked!" });
+    } else {
+      await post.updateOne({ $pull: { likes: req.user._id } });
+      return res.status(200).json({ message: "Post Disliked!" });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
   }
 };

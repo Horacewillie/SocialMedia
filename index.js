@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 
 const AuthRoute = require('./routes/auth')
 const UserRoute = require('./routes/user')
+const PostRoute = require('./routes/post')
 
 
 require('dotenv').config()
@@ -20,6 +21,7 @@ app.use(morgan('tiny'))
 
 app.use('/api/users', AuthRoute)
 app.use('/api/users', UserRoute)
+app.use('/api/posts', PostRoute)
 
 
 mongooseConnect(() => {
