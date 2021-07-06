@@ -48,6 +48,7 @@ exports.loginUser = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
+    console.log(user)
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -148,10 +149,14 @@ exports.deleteUser = async (req, res) => {
 //GetUser
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
-    const { password, token, updatedAt, createdAt, ...other } = user;
-    return res.status(200).json(other);
-  } catch (err) {
+    const user = await User.findById(req.user._id)
+    .select("-password")
+    .select("-token")
+    .select("-updatedAt")
+    .select("-createdAt");
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log("Error")
     return res.status(400).json({
       message: error.message,
     });
@@ -260,3 +265,30 @@ exports.likePost = async (req, res) => {
     });
   }
 };
+
+//get Post
+exports.getPost = async (req, res) => {
+  try{
+    const post = await Post.findById(req.params.id)
+    return res.status(200).json(post)
+  }catch(err){
+    return res.status(400).json({
+      message: err.message
+    })
+  }
+}
+
+//get Timeline Post
+exports.timelinePost = async (req, res) => {
+  try{
+    const userPosts = await Post.find({userId: req.user._id })
+    const friendPosts = await Promise.all(
+      req.user._id.following.map((friendsId) => {
+        return Post.find({userId: friendsId})
+      })
+    )
+    return res.status(200).json(userPosts.concat(...friendPosts))
+  }catch(err){
+    return res.status(400).json({ message: err.message})
+  }
+}

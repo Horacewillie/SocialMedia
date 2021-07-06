@@ -8,5 +8,7 @@ router.post("/", auth, controller.createPost);
 router.put("/:id", auth, controller.updatePost);
 router.delete("/:id", auth, controller.deletePost);
 router.put('/:id/like', auth, controller.likePost)
+router.get('/:id', auth, controller.getPost)
+router.get('/timeline/all', auth, controller.timelinePost)
 
 module.exports = router;

@@ -1,0 +1,92 @@
+.headerContainer{
+    height: 50px;
+    width: 100%;
+    background-color: #1877f2;
+    display: flex;
+    align-items: center;
+    background-color: #1877f2;
+    position: sticky;
+    top: 0;
+}
+.logo{
+    font-size: 24px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.searchbar{
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+}
+
+.headerImg{
+    width: 32px;
+    height: 32px;
+}
+
+.searchInput{
+    width: 90%;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    height: 32px;
+}
+
+.searchIcon{
+    font-size: 20px !important;
+    margin-left: 10px;
+}
+
+.headerImg{
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.headerLeft{
+    flex: 3
+}
+.headerCenter{
+    flex: 5
+}
+.headerRight{
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white
+}
+
+.headerIconItem{
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.headerIcons{
+    display: flex
+}
+
+.headerLink{
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.headerIconBadge{
+    position: absolute;
+    top: -5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    color: white;
+    background-color: red;
+    text-align: center;
+    font-size: 13px;
+    right: -5px;
+}

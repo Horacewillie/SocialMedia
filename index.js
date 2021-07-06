@@ -10,23 +10,25 @@ const PostRoute = require('./routes/post')
 
 
 require('dotenv').config()
+const PORT = process.env.PORT || 5000
 
 const app = express()
 
+//Middlewares
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('tiny'))
 
-
+//Routes
 app.use('/api/users', AuthRoute)
 app.use('/api/users', UserRoute)
 app.use('/api/posts', PostRoute)
 
 
 mongooseConnect(() => {
-    app.listen(8080, () => {
-        console.log('Server is listening on port 8080')
+    app.listen(PORT, () => {
+        console.log(`SERVER LISTENING ON PORT ${PORT}`)
     })
 })
 
