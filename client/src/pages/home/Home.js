@@ -1,10 +1,15 @@
 import React from 'react'
-import Header from '../../components/header/Header'
+import "./home.css"
+import Rightbar from '../../components/rightbar/Rightbar'
+import Sidebar from '../../components/sidebar/Sidebar'
+import Feed from '../../components/feed/Feed'
 
 function Home() {
     return (
-        <div>
-            <Header />
+        <div className = 'homeContainer'>
+            <Sidebar />
+            <Feed />
+            <Rightbar />
         </div>
     )
 }

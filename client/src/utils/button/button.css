@@ -1,0 +1,18 @@
+.button{
+    text-transform: uppercase;
+    padding: 10px;
+    display: table;
+    background: #e1ddc3;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.shareButton{
+    color: white;
+    background-color: green;
+    padding: 7px;
+    margin-right: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+}
