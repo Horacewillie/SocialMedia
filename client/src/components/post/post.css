@@ -18,6 +18,7 @@ box-shadow: -1px 0px 6px 3px rgba(197, 188, 188, 0.52);
 
 .postTopLeft{
     display: flex;
+    align-items: center
 }
 
 .postUsername{

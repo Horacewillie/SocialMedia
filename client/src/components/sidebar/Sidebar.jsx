@@ -11,6 +11,8 @@ import {
   Event,
   School,
 } from "@material-ui/icons";
+import CloseFriend from "../closeFriend/CloseFriend";
+import { Users } from "../../dummyData";
 
 function Sidebar() {
   const renderListItem = () => (
@@ -53,45 +55,17 @@ function Sidebar() {
       </li>
     </ul>
   );
-  const renderListItem2 = () => (
-    <ul className="sidebarFriendList">
-      <li className="sidebarFriend">
-        <img src="/assets/Person/2.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Ijoba Okoli</span>
-      </li>
-      <li className="sidebarFriend">
-        <img src="/assets/Person/3.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Tolu Akinpelu</span>
-      </li>
-      <li className="sidebarFriend">
-        <img src="/assets/Person/4.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Lucky Odume</span>
-      </li>
-      <li className="sidebarFriend">
-        <img src="/assets/Person/5.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Courage Osemwengie</span>
-      </li>
-      <li className="sidebarFriend">
-        <img src="/assets/Person/6.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Emma Adoms</span>
-      </li>
-      <li className="sidebarFriend">
-        <img src="/assets/Person/7.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Asi Etimbuk</span>
-      </li>
-      <li className="sidebarFriend">
-        <img src="/assets/Person/8.jpeg" alt="" className="sidebarFriendImg" />
-        <span className="sideBarFriendName">Dan Azumi</span>
-      </li>
-    </ul>
-  );
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
         {renderListItem()}
-        <Button type="default" desc = 'Show More'/>
+        <Button type="default" desc="Show More" />
         <hr className="sidebarHr" />
-        {renderListItem2()}
+        <ul className="sidebarFriendList">
+          {Users.map((user) => (
+            <CloseFriend key={user.id} user={user} />
+          ))}
+        </ul>
       </div>
     </div>
   );
