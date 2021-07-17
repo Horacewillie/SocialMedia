@@ -1,0 +1,77 @@
+.register{
+    width: 100vw;
+    height: 100vh;
+    background: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+}
+
+.registerWrapper{
+    height: 70%;
+    width: 70%;
+    display: flex;
+}
+
+.registerLeft,.registerRight{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+    padding-bottom: 30px;
+}
+
+.registerLogo{
+   font-size: 50px;
+   font-weight: 800; 
+   color: #1775ee;
+   margin-bottom: 10px;
+}
+
+.registerDesc{
+    font-size:24px
+}
+
+.registerBox{
+    height: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.registerButton{
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    background-color:#1775ee;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.registerRegister{
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    background-color:#42b72a;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    width: 60%;
+    text-align: center;
+    align-self: center;
+    margin-top: 10px;
+}
+
+.loginLink{
+    color: white;
+    text-decoration: none;
+}
+

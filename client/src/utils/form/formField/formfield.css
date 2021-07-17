@@ -1,0 +1,15 @@
+.inputArea{
+    width: 94%;
+    outline: none;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    padding-left: 20px;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.error_label{
+    color: red;
+    padding-top: 3px
+}
