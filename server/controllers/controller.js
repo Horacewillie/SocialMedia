@@ -148,7 +148,7 @@ exports.deleteUser = async (req, res) => {
 //GetUser
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.params.id)
     .select("-password")
     .select("-token")
     .select("-updatedAt")
@@ -280,9 +280,10 @@ exports.getPost = async (req, res) => {
 //get Timeline Post
 exports.timelinePost = async (req, res) => {
   try{
-    const userPosts = await Post.find({userId: req.user._id })
+  const currentUser = await User.findById(req.params.userId)
+    const userPosts = await Post.find({userId: currentUser._id})
     const friendPosts = await Promise.all(
-      req.user._id.following.map((friendsId) => {
+      currentUser.following.map((friendsId) => {
         return Post.find({userId: friendsId})
       })
     )

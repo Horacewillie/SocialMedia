@@ -9,8 +9,8 @@ function Profile() {
       <Sidebar />
       <div className="profileRight">
         <div className="profileCover">
-            <img src="assets/Post/3.jpeg" alt="" className="profileCoverImg" />
-            <img src="assets/Person/7.jpeg" alt="" className="profileUserImg" />
+            <img src="/assets/Post/3.jpeg" alt="" className="profileCoverImg" />
+            <img src="/assets/Person/7.jpeg" alt="" className="profileUserImg" />
         </div>
         <div className="profileInfo">
             <h4 className="profileInfoName">Horace Akpan</h4>

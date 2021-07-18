@@ -1,12 +1,15 @@
 import React from 'react'
 import './header.css'
 import { Search, Person, Chat, Notifications } from '@material-ui/icons'
+import {Link} from 'react-router-dom'
 
 function Header() {
     return (
         <div className = 'headerContainer'>
             <div className="headerLeft">
-                <span className="logo">IjobaSocial</span>
+                <Link to = '/' style = {{textDecoration: 'none'}}>
+                  <span className="logo">IjobaSocial</span>
+                </Link>
             </div>
             <div className="headerCenter">
                 <div className="searchbar">

@@ -1,25 +1,38 @@
-import {useState} from 'react'
 import './post.css';
+import {useState, useEffect} from 'react'
+import axios from "axios"
 import { MoreVert } from '@material-ui/icons';
-import { Users } from '../../dummyData';
+import TimeAgo from 'timeago-react'
+
+
+//import { Users } from '../../dummyData';
 
 function Post({post}) { 
-    const[like, setLike] = useState(post.like)
+    const[like, setLike] = useState(post.likes.length)
     const[isLiked, setIsLiked] = useState(false)
+    const [user, setUser] = useState({})
 
     const likeHandler = () => {
         setLike(isLiked ? like-1 : like + 1)
         setIsLiked(!isLiked)
     }
 
+    useEffect(() => {
+        axios
+          .get(`/api/users/${post.userId}`)
+          .then((res) => {
+              setUser(res.data)
+          });
+      }, [post.userId]);
+
     return (
         <div className = 'post'>
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img src={Users.filter(user => user.id === post?.userId)[0].profilePicture} alt="" className="postProfileImg" />
-                        <span className="postUsername">{Users.filter(user => user.id === post?.userId)[0].username}</span>
-                        <span className="postDate">{post.date}</span>
+                        <img src={user.profilePicture || `/assets/Person/avatar.jpg`} alt="" className="postProfileImg" />
+                        <span className="postUsername">{user.username}</span>
+                        <span className="postDate"><TimeAgo datetime = {post.createdAt}/></span>
                     </div>
                     <div className="postTopRight">
                         <MoreVert />
@@ -27,7 +40,7 @@ function Post({post}) {
                 </div>
                 <div className="postCenter">
                     <span className="postText">{post?.desc}</span>
-                    <img src={post.photo} alt="" className="postImg" />
+                    <img src={`/assets/${post.img}`} alt="" className="postImg" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
