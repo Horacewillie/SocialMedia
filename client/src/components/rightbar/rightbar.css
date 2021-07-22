@@ -1,10 +1,17 @@
 .rightbar{
     flex: 4.5;
-    margin-top: 20px;
+   
+    
+    
+}
+.rightbarDetails{
+    margin-top: 70px;
 }
 
 .rightbarWrapper{
     padding: 20px 20px 0 0;
+    margin-top: 50px;
+   
 }
 
 .birthdayContainer{
@@ -39,7 +46,8 @@
 .rightbarTitle{
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .rightbarInfo{
@@ -66,7 +74,7 @@
 .rightbarFollowing{
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     cursor: pointer;
     align-items:center;
 }
@@ -76,12 +84,12 @@
     font-weight: 300;
 }
 .rightbarInfoItem{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .rightbarfollowingImg{
     width: 135px;
-    height: 135px;
+    height: 120px;
     object-fit: cover;
     border-radius:5px
 }

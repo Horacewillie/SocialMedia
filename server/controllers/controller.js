@@ -81,7 +81,7 @@ exports.loginUser = async (req, res) => {
 
 //Authenticate User
 exports.authUser = (req, res) => {
-  res.status(200).send({
+  return res.status(200).send({
     isAdmin: req.user.role === 0 ? false : true,
     isAuth: true,
     followers: req.user.followers,
@@ -90,6 +90,7 @@ exports.authUser = (req, res) => {
     lastname: req.user.lastname,
     email: req.user.email,
     name: req.user.name,
+    username: req.user.username,
     coverPicture: req.user.coverPicture,
     profilePicture: req.user.profilePicture,
     info: req.user.info,
@@ -148,11 +149,14 @@ exports.deleteUser = async (req, res) => {
 //GetUser
 exports.getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id)
+    const userId = req.query.userId
+    const username = req.query.username
+    const user = userId ? await User.findById(userId) : await User.findOne({username: username})
     .select("-password")
     .select("-token")
     .select("-updatedAt")
     .select("-createdAt");
+    console.log(user, 'Hey MAN')
     return res.status(200).json(user);
   } catch (error) {
     console.log("Error")
@@ -293,4 +297,14 @@ exports.timelinePost = async (req, res) => {
   }
 }
 
+//get post for specific user
+exports.usernamePost= async (req, res) => {
+  try{
+    const user = await User.findOne({username:req.params.username})
+    const post = await Post.find({userId: user._id})
+    return res.status(200).json(post)
+  }catch(err){
+    return res.status(400).json({ message: err.message})
+  }
+}
 

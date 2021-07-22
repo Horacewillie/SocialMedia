@@ -10,5 +10,6 @@ router.delete("/:id", auth, controller.deletePost);
 router.put('/:id/like', auth, controller.likePost)
 router.get('/:id', auth, controller.getPost)
 router.get('/timeline/:userId', controller.timelinePost)
+router.get('/profile/:username', controller.usernamePost)
 
 module.exports = router;

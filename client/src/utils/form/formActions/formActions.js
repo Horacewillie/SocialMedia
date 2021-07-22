@@ -7,8 +7,8 @@ export const update = (element, formData, formName) => {
 
     newElement.value = element.e.target.value
     if(element.blur){
-        let validData = validate(newElement, formData);
-        newElement.valid = validData[0];
+      let validData = validate(newElement, formData);
+      newElement.valid = validData[0];
       newElement.validationMessage = validData[1];
     }
     newElement.touched = element.blur;
@@ -24,6 +24,7 @@ export const validate = (element, formData= []) =>{
 
   if(element.validation.email){
     const valid = /\S+@\S+\.\S+/.test(element.value);
+    console.log(valid, 'Actions')
     const message = `${valid ? "" : "Must be a valid email"}`;
       error = !valid ? [valid, message] : error;
   }
@@ -52,11 +53,12 @@ export const generateData = (formData, formName) => {
 
 }
 
-export const isFormValid = (formData, formName) => {
-    for(let key in formData){
-        if(!formData[key].valid){
-            return false
-        }
+export const isFormValid = (formdata, formName) => {
+  for (let key in formdata) {
+    if (!formdata[key].valid) {
+      return false;
     }
-    return true
-}
+  }
+
+  return true;
+};

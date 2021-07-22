@@ -1,12 +1,18 @@
 import "./login.css";
-import { useState } from "react";
+import { useState, useContext} from "react";
+import { useHistory } from "react-router";
 import {Link} from 'react-router-dom'
 import FormField from "../../utils/form/formField/FormField";
-import { update, generateData } from "../../utils/form/formActions/formActions";
+import { update, generateData, isFormValid } from "../../utils/form/formActions/formActions";
+import {LoginContext} from '../../context/Login/LoginContext'
+import {loginUser} from '../../context/Login/LoginActions'
+import {CircularProgress} from '@material-ui/core'
 
-function Login() {
+
+function Login({props}) {
   const [state, setState] = useState({
     formError: false,
+    errorMessage: '',
     formSuccess: "",
     formData: {
       email: {
@@ -44,37 +50,54 @@ function Login() {
     },
   });
 
+ 
+
+  const {dispatch, isFetching, loginSuccess, error} = useContext(LoginContext)
+  const history = useHistory()
+
   const updateForm = (element) => {
     const newFormData = update(element, state.formData, "login");
 
     setState({
+      ...state,
       formError: false,
       formData: newFormData,
     });
   };
-  const submitForm = (e) => {
+    
+  
+  const submitForm = async (e) => {
     e.preventDefault();
-    let dataToSubmit = generateData(this.state.formData, "login");
-    console.log(dataToSubmit);
-    // let formIsValid = isFormValid(this.state.formData, 'login')
-
-    // if(formIsValid){
-    //   console.log('Hey')
-    //   this.props.dispatch(loginUser(dataToSubmit)).then(res => {
-    //     console.log(res)
-    //     if(res.payload.success){
-    //       this.props.history.push('/user/dashboard')
-    //     }else{
-    //       this.setState({
-    //         formError: true
-    //       })
-    //     }
-    //   })
-    // }else{
-    //   this.setState({
-    //     formError: true
-    //   })
-    // }
+    let dataToSubmit = generateData(state.formData, "login");
+    let formIsValid = isFormValid(state.formData, 'login')
+    
+      if(formIsValid){
+        loginUser(dispatch, dataToSubmit).then(res => {
+          console.log(res)
+          if(res.success){
+            history.push('/') 
+          }else if(!res.data.success && res.data.message === 'Incorrect Password'){
+            setState({
+              ...state,
+              formError: true,
+              errorMessage: res.data.message
+            })
+          }else{
+            setState({
+              ...state,
+              errorMessage: 'User does not exist',
+              formError: true
+            })
+          }
+        })
+     } 
+    else{
+      setState({
+        ...state,
+        formError: true,
+        errorMessage: 'Please Check your data'
+      })
+    }
   };
 
   return (
@@ -87,7 +110,7 @@ function Login() {
           </span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
+          <form onSubmit = {(e) => submitForm(e)} className="loginBox">
             <FormField
               id="email"
               formData={state.formData.email}
@@ -98,17 +121,18 @@ function Login() {
               formData={state.formData.password}
               change={(element) => updateForm(element)}
             />
-            {state.formError ? (
-                    <div>Please check your data</div>
+          
+            {state.formError && state.errorMessage ? (
+                    <div className = 'form_error'>{state.errorMessage }</div>
                   ) : null}
             <button className="loginButton" onClick={(e) => submitForm(e)}>
-              LOG IN
+               {isFetching ? <CircularProgress style ={{color: 'white'}} size={15} thickness ={2.5}/> : 'LOG IN'}
             </button>
             <span className="loginForgot">Forgot Password</span>
             <button className="loginRegister">
             <Link className = 'registerLink' to = '/register'>Create an Account</Link>
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

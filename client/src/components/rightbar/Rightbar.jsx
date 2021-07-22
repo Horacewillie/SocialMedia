@@ -2,33 +2,34 @@ import "./rightbar.css";
 import Online from "../online/Online";
 import { Users } from "../../dummyData";
 
-function Rightbar({props}) {
+function Rightbar({user}) {
     const followingDetails = [
         {
-            img: 'assets/Person/1.jpeg',
+            img: '/assets/Person/1.jpeg',
             name: "David Herbert"
         },
         {
-            img: 'assets/Person/6.jpeg',
+            img: '/assets/Person/6.jpeg',
             name: "David Herbert"
         },
         {
-            img: 'assets/Person/8.jpeg',
+            img: '/assets/Person/8.jpeg',
             name: "David Herbert"
         },
         {
-            img: 'assets/Person/5.jpeg',
+            img: '/assets/Person/5.jpeg',
             name: "David Herbert"
         },
         {
-            img: 'assets/Person/3.jpeg',
+            img: '/assets/Person/3.jpeg',
             name: "David Herbert"
         },
         {
-            img: 'assets/Person/2.jpeg',
+            img: '/assets/Person/2.jpeg',
             name: "David Herbert"
         },
     ]
+
     const renderFollowing = () => (
         followingDetails.map((detail) => (
             <div key = {Math.random()} className="rightbarFollowing">
@@ -39,17 +40,17 @@ function Rightbar({props}) {
     )
   return (
     <div className="rightbar">
-      {window.location.pathname !== "/profile" ? (
+      {!window.location.pathname.split('/').includes('profile') ? (
         <div className="rightbarWrapper">
           <div className="birthdayContainer">
-            <img src="assets/gift.png" alt="" className="birthdayImg" />
+            <img src="/assets/gift.png" alt="" className="birthdayImg" />
             <span className="birthdayText">
               <b>Paula Foster</b> and <b>3 other friends</b> have birthdays
               today.
             </span>
           </div>
 
-          <img src="assets/ad.png" alt="" className="rightbarAd" />
+          <img src="/assets/ad.png" alt="" className="rightbarAd" />
           <h4 className="rightbarTitle">Online Friends</h4>
           <ul className="rightbarFriendList">
             {Users.map((user) => (
@@ -58,16 +59,16 @@ function Rightbar({props}) {
           </ul>
         </div>
       ) : (
-        <>
+        <div className = 'rightbarDetails'>
           <h4 className="rightbarTitle">User Information</h4>
           <div className="rightbarInfo">
           <div className="rightbarInfoItem">
               <span className="rightbarInfoKey">City:</span>
-              <span className="rightbarInfoValue">New York</span>
+              <span className="rightbarInfoValue">{user.city}</span>
             </div>
             <div className="rightbarInfoItem">
               <span className="rightbarInfoKey">From:</span>
-              <span className="rightbarInfoValue">Madrid</span>
+              <span className="rightbarInfoValue">{user.from}</span>
             </div>
             <div className="rightbarInfoItem">
               <span className="rightbarInfoKey">Relationship:</span>
@@ -80,7 +81,7 @@ function Rightbar({props}) {
                 {renderFollowing()}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

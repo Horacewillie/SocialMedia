@@ -4,7 +4,7 @@
     background-color: #1877f2;
     display: flex;
     align-items: center;
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 999
 }
@@ -21,6 +21,7 @@
     align-items: center;
     background: #fff;
     border-radius: 20px;
+    margin-right: 30px;
 }
 
 .headerImg{

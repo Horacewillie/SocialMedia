@@ -44,6 +44,7 @@
 }
 
 .loginButton{
+    text-align: center;
     height: 50px;
     border: none;
     border-radius: 10px;
@@ -77,5 +78,9 @@
     color: white;
    
     text-decoration: none;
+}
+.form_error{
+    color: red;
+    text-align: center;
 }
 

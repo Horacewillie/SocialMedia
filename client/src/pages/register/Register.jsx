@@ -119,7 +119,7 @@ function Login() {
   };
   const submitForm = (e) => {
     e.preventDefault();
-    let dataToSubmit = generateData(this.state.formData, "login");
+    let dataToSubmit = generateData(state.formData, "login");
     console.log(dataToSubmit);
     // let formIsValid = isFormValid(this.state.formData, 'login')
 
